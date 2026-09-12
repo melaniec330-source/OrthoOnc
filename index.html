@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#082f52">
+<title>OrthoPearls</title>
+<style>
+:root{
+  --navy:#082f52;--navy2:#0c466f;--bg:#f4f7fa;--card:#fff;--ink:#14283a;
+  --muted:#6e7e8c;--line:#dce5ec;--soft:#edf3f7;--danger:#b42318;--dangerbg:#fff2f0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input{font:inherit}
+button{-webkit-tap-highlight-color:transparent}
+#app{max-width:760px;margin:0 auto;min-height:100vh;background:var(--bg)}
+main{padding-bottom:76px}
+.hidden{display:none!important}
+.hero{
+  color:#fff;padding:calc(34px + env(safe-area-inset-top)) 20px 24px;
+  min-height:290px;position:relative;overflow:hidden;
+  background:linear-gradient(145deg,#041f37,#073d67 68%,#0d4f80)
+}
+.hero:after{
+  content:"";position:absolute;right:-35px;top:20px;width:230px;height:270px;opacity:.13;
+  background:
+    radial-gradient(ellipse at 45% 20%,transparent 0 17%,#e3f0fa 18% 20%,transparent 21% 32%,#e3f0fa 33% 35%,transparent 36%),
+    linear-gradient(90deg,transparent 47%,#e3f0fa 48% 52%,transparent 53%);
+  transform:rotate(-10deg)
+}
+.hero-content{position:relative;z-index:1}
+.hero h1{margin:0;font:500 3rem/1 Georgia,"Times New Roman",serif;letter-spacing:-.04em}
+.hero .sub{margin:.45rem 0 0;font-size:1rem}
+.hero .tag{margin:.25rem 0 0;color:#dbe9f3;font-size:.84rem}
+.search-launch{
+  position:relative;z-index:1;margin-top:38px;width:100%;border:1px solid rgba(255,255,255,.36);
+  background:rgba(255,255,255,.13);color:white;border-radius:14px;padding:12px 14px;text-align:left
+}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px}
+.tile{
+  min-height:132px;border:1px solid var(--line);background:var(--card);border-radius:15px;
+  color:var(--ink);padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center
+}
+.tile .glyph{width:44px;height:44px;border-radius:12px;background:var(--soft);display:grid;place-items:center;color:var(--navy2);font-weight:800;margin-bottom:8px}
+.tile b{font-size:.95rem}.tile small{display:block;color:var(--muted);font-size:.7rem;margin-top:5px;line-height:1.3}
+.footer-note{text-align:center;color:var(--muted);font:italic .84rem Georgia,serif;margin:4px 0 24px}
+.topbar{
+  position:sticky;top:0;z-index:20;height:calc(58px + env(safe-area-inset-top));
+  padding-top:env(safe-area-inset-top);background:var(--navy);color:white;
+  display:grid;grid-template-columns:48px 1fr 48px;align-items:center
+}
+.topbar button{border:0;background:none;color:white;font-size:1.7rem}
+.topbar h2{margin:0;text-align:center;font:700 1.08rem Georgia,serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.page{padding:18px 14px 28px}
+.eyebrow{margin:0 0 5px;text-transform:uppercase;letter-spacing:.11em;color:var(--navy2);font-weight:800;font-size:.66rem}
+.page h1{margin:0;font:700 1.76rem Georgia,serif}
+.lead{color:var(--muted);font-size:.87rem;line-height:1.5;margin:7px 0 16px}
+.list{display:grid;gap:9px}
+.row{
+  width:100%;display:grid;grid-template-columns:46px 1fr 18px;gap:10px;align-items:center;
+  border:1px solid var(--line);background:var(--card);border-radius:14px;color:var(--ink);padding:10px;text-align:left
+}
+.thumb{width:46px;height:46px;border-radius:11px;background:var(--soft);display:grid;place-items:center;color:var(--navy2);font-weight:800}
+.row b{display:block}.row small{display:block;color:var(--muted);font-size:.72rem;margin-top:3px}.chev{font-size:1.45rem;color:var(--navy2)}
+.tabs{display:flex;gap:4px;overflow-x:auto;margin:12px -14px 14px;padding:0 14px;border-bottom:1px solid var(--line)}
+.tab{border:0;background:none;color:var(--muted);padding:9px;border-bottom:2px solid transparent;white-space:nowrap;font-size:.76rem}
+.tab.active{color:var(--navy2);border-bottom-color:var(--navy2);font-weight:800}
+.card{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:14px;margin-bottom:10px}
+.card h3{margin:0 0 8px;font-size:1rem}.card p,.card li{color:var(--muted);font-size:.86rem;line-height:1.5}.card ul{padding-left:20px;margin:0}
+.pearl{padding-left:52px;position:relative;background:linear-gradient(135deg,var(--card),#f3f7f9)}
+.pearl:before{
+  content:"";position:absolute;left:15px;top:15px;width:26px;height:26px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#fff 0 20%,#f7f0e6 42%,#d5c4b3 78%,#9c8f82 100%);
+  box-shadow:0 2px 5px #0002
+}
+.red{background:var(--dangerbg);border-color:#f0c9c4}.red h3{color:var(--danger)}
+.searchbox{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:11px 13px;margin:12px 0}
+.searchbox input{width:100%;border:0;outline:0;background:none;color:var(--ink)}
+.empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line);background:var(--card);border-radius:14px}
+.bottom{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);z-index:30;width:min(760px,100%);
+  height:calc(66px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);
+  display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-top:1px solid var(--line)
+}
+.bottom button{border:0;background:none;color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+.bottom button.active{color:var(--navy2);font-weight:800}.bottom small{font-size:.62rem}
+.filterbar{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px}.chip{border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:999px;padding:8px 11px;white-space:nowrap;font-size:.72rem}.chip.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 14px}.badge{font-size:.64rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:5px 8px;background:var(--soft);color:var(--navy2)}.badge.intermediate{background:#fff4d7;color:#805b00}.badge.malignant{background:#fff0ef;color:#9f1c13}.badge.tumorlike{background:#f2efff;color:#5e45a4}
+.siggrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.sig{border:1px solid var(--line);border-radius:10px;padding:9px;background:#fafcfd}.sig b{display:block;font-size:.68rem;color:var(--ink);margin-bottom:3px}.sig span{font-size:.76rem;color:var(--muted)}
+.ref{font-size:.78rem;color:var(--muted);line-height:1.5}.imaging-figure{margin:0}.imaging-figure img{display:block;width:100%;height:auto;border-radius:10px;border:1px solid var(--line);background:#0b1117}.imaging-figure figcaption{margin-top:8px;font-size:.72rem;line-height:1.45;color:var(--muted)}.source-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.source-actions a{display:inline-block;text-decoration:none;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 11px;color:var(--navy2);font-size:.76rem;font-weight:700}.crosslinks{display:flex;flex-wrap:wrap;gap:8px}.crosslinks button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 10px;color:var(--navy2);font-size:.76rem}
+@media(max-width:390px){.hero h1{font-size:2.65rem}.grid{padding:11px}.tile{min-height:122px}}
+</style>
+</head>
+<body>
+<div id="app">
+<header id="topbar" class="topbar hidden">
+  <button id="backBtn" aria-label="Back">‹</button>
+  <h2 id="topTitle">OrthoPearls</h2>
+  <button id="favBtn" class="hidden" aria-label="Favorite">☆</button>
+</header>
+<main id="view"></main>
+<nav class="bottom">
+  <button data-route="home"><span>⌂</span><small>Home</small></button>
+  <button data-route="search"><span>⌕</span><small>Search</small></button>
+  <button data-route="favorites"><span>☆</span><small>Favorites</small></button>
+  <button data-route="settings"><span>⚙︎</span><small>Settings</small></button>
+</nav>
+</div>
+
+<script>
+const $=(s,e=document)=>e.querySelector(s), $$=(s,e=document)=>[...e.querySelectorAll(s)];
+const view=$("#view"), topbar=$("#topbar"), topTitle=$("#topTitle"), favBtn=$("#favBtn");
+const FKEY="orthopearl_clean_favorites";
+
+const sections=[
+  ["tumors","Tumor Library","Dx","Benign · Malignant · Tumor-like"],
+  ["anatomy","Orthopaedic Anatomy","◒","Regional · Neurovascular"],
+  ["exam","Physical Exam","♧","How to test · Documentation"],
+  ["imaging","Imaging Principles","XR","Systematic interpretation"],
+  ["metastatic","Metastatic Bone Disease","✣","Risk · Workup · Management"],
+  ["quiz","Quiz & Learning","?","Practice from app content"]
+];
+
+const entries=[
+  {id:"osteochondroma",title:"Osteochondroma",group:"tumors",behavior:"Benign",tissue:"Bone",lineage:"Cartilage",sub:"Exophytic lesion with corticomedullary continuity",ready:true},
+  {id:"enchondroma",title:"Enchondroma",group:"tumors",behavior:"Benign",tissue:"Bone",lineage:"Cartilage",sub:"Intramedullary hyaline-cartilage lesion"},
+  {id:"chondroblastoma",title:"Chondroblastoma",group:"tumors",behavior:"Benign",tissue:"Bone",lineage:"Cartilage",sub:"Epiphyseal lesion in younger patients"},
+  {id:"cmf",title:"Chondromyxoid Fibroma",group:"tumors",behavior:"Benign",tissue:"Bone",lineage:"Cartilage",sub:"Rare eccentric metaphyseal cartilage tumor"},
+  {id:"osteoid-osteoma",title:"Osteoid Osteoma",group:"tumors",behavior:"Benign",tissue:"Bone",lineage:"Bone-forming",sub:"Small nidus; classically painful at night"},
+  {id:"osteoblastoma",title:"Osteoblastoma",group:"tumors",behavior:"Benign",tissue:"Bone",lineage:"Bone-forming",sub:"Larger osteoid-producing benign tumor"},
+  {id:"nof",title:"Nonossifying Fibroma",group:"tumors",behavior:"Benign",tissue:"Bone",lineage:"Fibrous",sub:"Common eccentric metaphyseal fibrous lesion"},
+  {id:"fibrous-dysplasia",title:"Fibrous Dysplasia",group:"tumors",behavior:"Benign",tissue:"Bone",lineage:"Fibrous",sub:"Ground-glass fibro-osseous lesion"},
+  {id:"ubc",title:"Unicameral Bone Cyst",group:"tumors",behavior:"Benign",tissue:"Bone",lineage:"Cystic",sub:"Simple fluid-filled cyst in immature skeleton"},
+  {id:"abc",title:"Aneurysmal Bone Cyst",group:"tumors",behavior:"Benign",tissue:"Bone",lineage:"Cystic",sub:"Expansile blood-filled lesion; may be secondary"},
+  {id:"gct",title:"Giant Cell Tumor of Bone",group:"tumors",behavior:"Intermediate",tissue:"Bone",lineage:"Giant-cell rich",sub:"Locally aggressive epiphyseal tumor after physeal closure"},
+  {id:"lipoma",title:"Lipoma",group:"tumors",behavior:"Benign",tissue:"Soft Tissue",lineage:"Adipocytic",sub:"Mature adipocytic soft-tissue tumor"},
+  {id:"alt",title:"Atypical Lipomatous Tumor",group:"tumors",behavior:"Intermediate",tissue:"Soft Tissue",lineage:"Adipocytic",sub:"Locally aggressive adipocytic neoplasm"},
+  {id:"schwannoma",title:"Schwannoma",group:"tumors",behavior:"Benign",tissue:"Soft Tissue",lineage:"Peripheral nerve sheath",sub:"Encapsulated peripheral nerve sheath tumor"},
+  {id:"neurofibroma",title:"Neurofibroma",group:"tumors",behavior:"Benign",tissue:"Soft Tissue",lineage:"Peripheral nerve sheath",sub:"Peripheral nerve sheath lesion involving nerve fascicles"},
+  {id:"desmoid",title:"Desmoid-Type Fibromatosis",group:"tumors",behavior:"Intermediate",tissue:"Soft Tissue",lineage:"Fibroblastic",sub:"Nonmetastasizing but locally aggressive fibrous tumor"},
+  {id:"tgct",title:"Tenosynovial Giant Cell Tumor",group:"tumors",behavior:"Intermediate",tissue:"Soft Tissue",lineage:"Synovial",sub:"Localized or diffuse synovial proliferative tumor"},
+  {id:"synovial-chondromatosis",title:"Synovial Chondromatosis",group:"tumors",behavior:"Benign",tissue:"Soft Tissue",lineage:"Synovial",sub:"Multiple cartilaginous intra-articular bodies"},
+  {id:"osteosarcoma",title:"Osteosarcoma",group:"tumors",behavior:"Malignant",tissue:"Bone",lineage:"Bone-forming",sub:"High-grade malignant osteoid-producing tumor"},
+  {id:"ewing",title:"Ewing Sarcoma",group:"tumors",behavior:"Malignant",tissue:"Bone",lineage:"Small round cell",sub:"Primary bone sarcoma with systemic therapy sensitivity"},
+  {id:"chondrosarcoma",title:"Chondrosarcoma",group:"tumors",behavior:"Malignant",tissue:"Bone",lineage:"Cartilage",sub:"Malignant cartilage-producing tumor"},
+  {id:"adamantinoma",title:"Adamantinoma",group:"tumors",behavior:"Malignant",tissue:"Bone",lineage:"Epithelial",sub:"Low-grade malignant tumor classically of tibial diaphysis"},
+  {id:"myeloma",title:"Multiple Myeloma",group:"tumors",behavior:"Malignant",tissue:"Bone",lineage:"Hematologic",sub:"Plasma-cell malignancy with skeletal involvement"},
+  {id:"lymphoma",title:"Primary Bone Lymphoma",group:"tumors",behavior:"Malignant",tissue:"Bone",lineage:"Hematologic",sub:"Lymphoid malignancy involving bone"},
+  {id:"sts",title:"Soft-Tissue Sarcoma",group:"tumors",behavior:"Malignant",tissue:"Soft Tissue",lineage:"Sarcoma",sub:"General evaluation and management framework"},
+  {id:"liposarcoma",title:"Liposarcoma",group:"tumors",behavior:"Malignant",tissue:"Soft Tissue",lineage:"Adipocytic",sub:"Malignant adipocytic neoplasm"},
+  {id:"synovial-sarcoma",title:"Synovial Sarcoma",group:"tumors",behavior:"Malignant",tissue:"Soft Tissue",lineage:"Translocation-associated",sub:"Soft-tissue sarcoma often near large joints"},
+  {id:"mpnst",title:"Malignant Peripheral Nerve Sheath Tumor",group:"tumors",behavior:"Malignant",tissue:"Soft Tissue",lineage:"Peripheral nerve sheath",sub:"Aggressive malignant nerve sheath tumor"},
+  {id:"dfsp",title:"DFSP / Fibrosarcomatous DFSP",group:"tumors",behavior:"Malignant",tissue:"Soft Tissue",lineage:"Fibroblastic",sub:"Dermal sarcoma with locally infiltrative behavior"},
+  {id:"osteomyelitis",title:"Osteomyelitis / Brodie Abscess",group:"tumors",behavior:"Tumor-like",tissue:"Bone",lineage:"Mimic",sub:"Infection that can simulate bone neoplasia"},
+  {id:"myositis-ossificans",title:"Myositis Ossificans",group:"tumors",behavior:"Tumor-like",tissue:"Soft Tissue",lineage:"Mimic",sub:"Post-traumatic heterotopic ossification pattern"},
+  {id:"stress-fracture",title:"Stress Fracture",group:"tumors",behavior:"Tumor-like",tissue:"Bone",lineage:"Mimic",sub:"Repetitive stress injury that may mimic aggressive disease"},
+  {id:"bone-infarct",title:"Bone Infarct",group:"tumors",behavior:"Tumor-like",tissue:"Bone",lineage:"Mimic",sub:"Medullary osteonecrosis with characteristic morphology"}
+];
+
+const content={
+osteochondroma:{
+  badges:["Benign","Bone","Cartilage"],
+  tabs:{
+    "Overview":[
+      ["At a Glance","Osteochondroma is the most common benign bone lesion. It is a cartilage-capped exophytic lesion with cortical and medullary continuity with the parent bone and typically grows away from the nearby physis."],
+      ["Epidemiology & Location","Usually identified in skeletally immature patients. The knee is the most common region (distal femur, proximal tibia, proximal fibula), followed by the proximal humerus; scapula, pelvis, and spine are less common sites."],
+      ["Clinical Pearl","When the cortex and medullary canal of the lesion are continuous with the parent bone, osteochondroma should move to the top of the differential.","pearl"],
+      ["Red Flag","New pain or renewed growth after skeletal maturity warrants reassessment for complication or malignant transformation.","red"]
+    ],
+    "Presentation":[
+      ["Typical Presentation","Most are painless, firm masses or incidental imaging findings. Symptoms can result from an inflamed overlying bursa, fracture through a stalk, mechanical impingement, or compression of muscle, tendon, or neurovascular structures."],
+      ["What to Ask","Onset and growth pattern; new or progressive pain; mechanical symptoms; neurologic complaints; vascular symptoms; history of multiple lesions or family history of multiple hereditary exostoses."],
+      ["What to Examine","Inspect and palpate the mass; assess tenderness and mobility of adjacent soft tissues; examine the nearby joint through active and passive ROM; document distal motor, sensory, and vascular status; look for limb deformity or multiple lesions."]
+    ],
+    "Imaging":[
+      ["Radiographic Signature",`<div class="siggrid"><div class="sig"><b>Age</b><span>Usually skeletally immature</span></div><div class="sig"><b>Location</b><span>Metaphyseal / juxtaphyseal</span></div><div class="sig"><b>Growth direction</b><span>Away from adjacent physis</span></div><div class="sig"><b>Morphology</b><span>Sessile or pedunculated</span></div><div class="sig"><b>Cortex</b><span>Continuous with parent cortex</span></div><div class="sig"><b>Medulla</b><span>Continuous with parent medullary canal</span></div><div class="sig"><b>Cartilage cap</b><span>Best assessed with cross-sectional imaging when indicated</span></div><div class="sig"><b>Aggressive signs</b><span>New growth, pain, thick/irregular cap, destructive change</span></div></div>`],
+      ["Open-License Radiograph",`<figure class="imaging-figure"><img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Kartilagin%C3%A4re_Exostose.png" alt="AP and lateral radiographs showing an osteochondroma of the proximal tibia" loading="lazy"><figcaption><b>Osteochondroma of the proximal tibia.</b> Open-license teaching image by Hellerhoff, Wikimedia Commons, CC BY-SA 3.0. Use the image together with the recognition checklist below rather than as a stand-alone diagnostic example.</figcaption></figure>`],
+      ["What to Recognize","Trace the cortex and medullary cavity of the lesion back into the parent bone. Confirm the surface origin, note sessile versus pedunculated morphology, and assess the direction of growth, adjacent cortex, and surrounding soft tissues."],
+      ["Plain Radiographs","Usually diagnostic. Radiographs show a sessile or pedunculated exostosis with corticomedullary continuity. Serial radiographs can document interval change."],
+      ["MRI / CT","Use cross-sectional imaging when symptoms, complex anatomy, neurovascular proximity, or concern for malignant transformation require further characterization. MRI is useful for the cartilage cap and soft tissues; CT can show cortical and medullary continuity clearly."],
+      ["Cartilage Cap","A thick, irregular cartilage cap greater than about 2 cm in a skeletally mature patient is concerning, but cap thickness is not by itself diagnostic of malignancy."],
+      ["Imaging Pearl","Do not confuse an adjacent bursa with the cartilage cap when measuring cap thickness; this can be a source of overestimation.","pearl"],
+      ["Real Cases & Further Imaging",`<div class="ref">Open the full case on the source site for additional views and scrollable studies. Radiopaedia images are linked rather than copied into OrthoPearls unless reuse permission is clear.</div><div class="source-actions"><a href="https://radiopaedia.org/cases/84816" target="_blank" rel="noopener noreferrer">Radiopaedia: sessile osteochondroma ↗</a><a href="https://radiopaedia.org/articles/osteochondroma" target="_blank" rel="noopener noreferrer">Radiopaedia: osteochondroma reference ↗</a><a href="https://commons.wikimedia.org/wiki/File:Kartilagin%C3%A4re_Exostose.png" target="_blank" rel="noopener noreferrer">Image license & source ↗</a></div>`]
+    ],
+    "Pathology":[
+      ["Gross Pathology","Sessile or pedunculated bony mass with a cartilage cap. The base is characteristically continuous with the cortex and medullary canal of the host bone."],
+      ["Histology","Classic layers include perichondrium, cartilage, and bone, with enchondral ossification near the bone-cartilage interface."],
+      ["Genetics","Loss of function involving EXT tumor-suppressor genes is central to osteochondroma biology. Multiple hereditary exostoses is associated with EXT1 or EXT2 mutations."],
+      ["Malignant Change","Concerning pathologic features include myxoid change, increased cellularity or atypia, and mitotic activity; clinical and imaging correlation remains essential."]
+    ],
+    "Treatment":[
+      ["Observation","Asymptomatic solitary osteochondromas generally do not require treatment. Routine repeated radiographs are not necessarily indicated for every asymptomatic solitary lesion; patients should understand return precautions for growth or new symptoms."],
+      ["When to Consider Excision","Painful mechanical irritation, symptomatic bursa, fracture, neurovascular compression, functional limitation, deformity, or concern for malignant transformation."],
+      ["Operative Principle","Remove the entire cartilage cap while minimizing morbidity and protecting adjacent neurovascular structures."],
+      ["NP / Clinic Workflow","Confirm whether symptoms truly localize to the lesion; review prior imaging for stability; perform and document a focused neurovascular exam; escalate new pain/growth after maturity or concerning cross-sectional findings to the orthopaedic oncology team."]
+    ],
+    "Prognosis":[
+      ["Natural History","Most solitary lesions remain benign and asymptomatic. Recurrence is uncommon after complete excision."],
+      ["Malignant Transformation","The source text reports malignant transformation in less than 1% of solitary osteochondromas and a substantially higher risk in patients with multiple osteochondromas."],
+      ["Follow-up Pearl","For lesions in anatomically difficult locations where complete excision is challenging, closer clinical and radiographic follow-up may be appropriate.","pearl"]
+    ],
+    "Exam":[
+      ["How to Assess","Position the patient to expose the lesion and the adjacent joint. Inspect for deformity or visible prominence, palpate the mass and surrounding bursa/soft tissues, take the joint through active and passive ROM, and reproduce any mechanical symptoms."],
+      ["Neurovascular Check","Test motor groups and sensory territories relevant to the lesion location and document distal pulses/perfusion. Around the proximal fibula, pay particular attention to common fibular nerve function; around the distal femur/proximal tibia, assess the regional neurovascular exam systematically."],
+      ["Abnormal Findings That Matter","New focal tenderness, progressive size, motion-related impingement, weakness, sensory change, diminished pulses, pathologic fracture symptoms, or new pain after skeletal maturity should prompt further evaluation."]
+    ],
+    "References":[
+      ["Primary Source",`<div class="ref"><b>Orthopaedic Knowledge Update: Musculoskeletal Tumors, 4th ed.</b><br>Chapter 10: Benign Cartilage Lesions — Osteochondroma section (textbook pp. 111–114; parsed PDF pp. 256–262).</div>`],
+      ["Imaging Source",`<div class="ref"><b>Musculoskeletal Imaging: A Survival Manual</b><br>Bone Tumors chapter — Osteochondroma, p. 119.</div>`],
+      ["Cross-links",`<div class="crosslinks"><button data-route="imaging">Bone Lesion Analysis</button><button data-route="anatomy">Regional Anatomy</button></div>`]
+    ]
+  }
+}
+};
+function favs(){try{return JSON.parse(localStorage.getItem(FKEY)||"[]")}catch{return[]}}
+function isFav(id){return favs().includes(id)}
+function toggleFav(id){let f=favs();f=isFav(id)?f.filter(x=>x!==id):[...f,id];localStorage.setItem(FKEY,JSON.stringify(f));favBtn.textContent=isFav(id)?"★":"☆"}
+function go(r){location.hash=r}
+function setTop(title,showFav=false,id=""){topbar.classList.remove("hidden");topTitle.textContent=title;favBtn.classList.toggle("hidden",!showFav);favBtn.dataset.id=id;if(showFav)favBtn.textContent=isFav(id)?"★":"☆"}
+function hideTop(){topbar.classList.add("hidden")}
+function activeNav(r){$$(".bottom button").forEach(b=>b.classList.toggle("active",b.dataset.route===r))}
+function row(x){const icon=x.group==="imaging"?"XR":x.group==="tumors"?"Dx":"•";const meta=x.group==="tumors"?`${x.behavior} · ${x.tissue} · ${x.lineage}`:x.sub;return `<button class="row" data-detail="${x.id}"><span class="thumb">${icon}</span><span><b>${x.title}</b><small>${meta}</small>${x.group==="tumors"?`<small>${x.sub}</small>`:""}</span><span class="chev">›</span></button>`}
+
+function home(){
+  hideTop();activeNav("home");
+  view.innerHTML=`<section class="hero"><div class="hero-content"><h1>OrthoPearls</h1><p class="sub">Orthopaedic Oncology</p><p class="tag">Learn. Apply. Excel.</p></div><button class="search-launch" data-route="search">⌕ &nbsp; Search tumors, anatomy, imaging…</button></section><section class="grid">${sections.map(s=>`<button class="tile" data-route="${s[0]}"><span class="glyph">${s[2]}</span><b>${s[1]}</b><small>${s[3]}</small></button>`).join("")}</section><p class="footer-note">Clinician education reference · No PHI</p>`
+}
+function sectionPage(id){
+  const s=sections.find(x=>x[0]===id);setTop(s[1]);activeNav("");
+  if(id==="quiz"){view.innerHTML=`<section class="page"><p class="eyebrow">Learning</p><h1>Quiz & Learning</h1><p class="lead">Quiz engine comes after the Tumor Library template is approved.</p><div class="empty">Tumor Library is the current build focus.</div></section>`;return}
+  if(id==="tumors"){tumorLibrary();return}
+  const list=entries.filter(x=>x.group===id);
+  view.innerHTML=`<section class="page"><p class="eyebrow">Reference</p><h1>${s[1]}</h1><p class="lead">${s[3]}</p><div class="list">${list.length?list.map(row).join(""):`<div class="empty">Content will be added after Tumor Library approval.</div>`}</div></section>`
+}
+function tumorLibrary(behavior="All",tissue="All Tissues",q=""){
+  setTop("Tumor Library");activeNav("");
+  let list=entries.filter(x=>x.group==="tumors");
+  if(behavior!=="All")list=list.filter(x=>x.behavior===behavior);
+  if(tissue!=="All Tissues")list=list.filter(x=>x.tissue===tissue);
+  if(q){const z=q.toLowerCase();list=list.filter(x=>(`${x.title} ${x.behavior} ${x.tissue} ${x.lineage} ${x.sub}`).toLowerCase().includes(z))}
+  view.innerHTML=`<section class="page"><p class="eyebrow">Bone & Soft Tissue</p><h1>Tumor Library</h1><p class="lead">One unified library with biologic behavior and tissue filters. Osteochondroma is the completed template page in this prototype.</p><div class="searchbox"><input id="tumorSearch" placeholder="Search tumors…" value="${q}"></div><div class="filterbar">${["All","Benign","Intermediate","Malignant","Tumor-like"].map(x=>`<button class="chip ${x===behavior?"active":""}" data-behavior="${x}">${x}</button>`).join("")}</div><div class="filterbar">${["All Tissues","Bone","Soft Tissue"].map(x=>`<button class="chip ${x===tissue?"active":""}" data-tissue="${x}">${x}</button>`).join("")}</div><div id="tumorList" class="list">${list.length?list.map(row).join(""):`<div class="empty">No tumors match these filters.</div>`}</div></section>`;
+  view.dataset.behavior=behavior;view.dataset.tissue=tissue;
+}
+function detailPage(id,tab){
+  const e=entries.find(x=>x.id===id), d=content[id]; if(!e)return home();
+  setTop(e.title,true,id);activeNav("");
+  if(!d){view.innerHTML=`<section class="page"><p class="eyebrow">Tumor Library</p><h1>${e.title}</h1><div class="badges"><span class="badge ${e.behavior.toLowerCase().replace(/[^a-z]/g,"")}">${e.behavior}</span><span class="badge">${e.tissue}</span><span class="badge">${e.lineage}</span></div><p class="lead">${e.sub}</p><div class="empty">This diagnosis is intentionally not populated yet. Osteochondroma is being used to approve the final tumor-page template before the rest of the library is expanded.</div></section>`;return}
+  const tabs=Object.keys(d.tabs), current=tab&&tabs.includes(tab)?tab:tabs[0];
+  const cards=d.tabs[current].map(c=>`<section class="card ${c[2]||""}"><h3>${c[0]}</h3><p>${c[1]}</p></section>`).join("");
+  view.innerHTML=`<section class="page"><p class="eyebrow">Tumor Library</p><h1>${e.title}</h1><div class="badges">${d.badges.map(b=>`<span class="badge">${b}</span>`).join("")}</div><p class="lead">${e.sub}</p><div class="tabs">${tabs.map(t=>`<button class="tab ${t===current?"active":""}" data-tab="${t}" data-id="${id}">${t}</button>`).join("")}</div>${cards}</section>`
+}
+function searchPage(q=""){
+  setTop("Search");activeNav("search");
+  const term=q.toLowerCase(), r=entries.filter(e=>!term||(`${e.title} ${e.sub}`).toLowerCase().includes(term));
+  view.innerHTML=`<section class="page"><p class="eyebrow">Universal search</p><h1>Search</h1><div class="searchbox"><input id="searchInput" value="${q}" placeholder="Search OrthoPearls…"></div><div id="results" class="list">${r.length?r.map(row).join(""):`<div class="empty">No matches.</div>`}</div></section>`
+}
+function favoritesPage(){
+  setTop("Favorites");activeNav("favorites");
+  const r=entries.filter(e=>isFav(e.id));
+  view.innerHTML=`<section class="page"><p class="eyebrow">Saved reference</p><h1>Favorites</h1><p class="lead">Tap ☆ on a detail page to save it here.</p><div class="list">${r.length?r.map(row).join(""):`<div class="empty">No favorites yet.</div>`}</div></section>`
+}
+function settingsPage(){
+  setTop("Settings");activeNav("settings");
+  view.innerHTML=`<section class="page"><p class="eyebrow">App</p><h1>Settings</h1><section class="card"><h3>Clean build</h3><p>No service worker, no offline caching, and no external JS/CSS yet. This is intentional so we can verify the app shell and navigation first.</p></section></section>`
+}
+function render(){
+  const h=location.hash.slice(1)||"home";
+  if(h==="home")return home();
+  if(h==="search")return searchPage();
+  if(h==="favorites")return favoritesPage();
+  if(h==="settings")return settingsPage();
+  if(sections.some(s=>s[0]===h))return sectionPage(h);
+  if(h.startsWith("detail/"))return detailPage(h.split("/")[1]);
+  home()
+}
+document.addEventListener("click",e=>{
+  const r=e.target.closest("[data-route]");if(r){go(r.dataset.route);return}
+  const d=e.target.closest("[data-detail]");if(d){go("detail/"+d.dataset.detail);return}
+  const t=e.target.closest("[data-tab]");if(t){detailPage(t.dataset.id,t.dataset.tab);return}
+  const b=e.target.closest("[data-behavior]");if(b){tumorLibrary(b.dataset.behavior,view.dataset.tissue||"All Tissues",$("#tumorSearch")?.value||"");return}
+  const ti=e.target.closest("[data-tissue]");if(ti){tumorLibrary(view.dataset.behavior||"All",ti.dataset.tissue,$("#tumorSearch")?.value||"");return}
+});
+document.addEventListener("input",e=>{
+  if(e.target.id==="searchInput"){
+    const q=e.target.value.toLowerCase();
+    const r=entries.filter(x=>!q||(`${x.title} ${x.sub}`).toLowerCase().includes(q));
+    $("#results").innerHTML=r.length?r.map(row).join(""):`<div class="empty">No matches.</div>`;
+  }
+  if(e.target.id==="tumorSearch")tumorLibrary(view.dataset.behavior||"All",view.dataset.tissue||"All Tissues",e.target.value);
+});
+$("#backBtn").addEventListener("click",()=>history.length>1?history.back():go("home"));
+favBtn.addEventListener("click",()=>{if(favBtn.dataset.id)toggleFav(favBtn.dataset.id)});
+window.addEventListener("hashchange",render);
+render();
+</script>
+</body>
+</html>
